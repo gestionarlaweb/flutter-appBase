@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -23,11 +24,24 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: Escudo.items.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Text(Escudo.items[index].nombre);
-        },
+      body: Container(
+        child: ListView.builder(
+          itemCount: Escudo.items.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+              child: Column(
+                children: [
+                  Image(
+                    width: 120,
+                    height: 120,
+                    image: AssetImage(Escudo.items[index].imagenUrl),
+                  ),
+                  Text(Escudo.items[index].nombre),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
