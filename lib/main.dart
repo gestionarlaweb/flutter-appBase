@@ -1,4 +1,5 @@
-import 'package:app_base/escudo_model.dart';
+import 'package:app_base/screens/datos_equipo.dart';
+import 'package:app_base/models/escudo_model.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,21 +29,42 @@ class MyHomePage extends StatelessWidget {
         child: ListView.builder(
           itemCount: Escudo.items.length,
           itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: Column(
-                children: [
-                  Image(
-                    width: 120,
-                    height: 120,
-                    image: AssetImage(Escudo.items[index].imagenUrl),
-                  ),
-                  Text(Escudo.items[index].nombre),
-                ],
-              ),
-            );
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return DatosEquipo(escudo: Escudo.items[index]);
+                  }));
+                },
+                child: buildRecipeCard(Escudo.items[index]));
           },
         ),
       ),
     );
   }
+}
+
+Widget buildRecipeCard(Escudo escudo) {
+  return Card(
+    elevation: 2.0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          Image(height: 150, width: 150, image: AssetImage(escudo.imagenUrl)),
+          const SizedBox(
+            height: 14.0,
+          ),
+          Text(
+            escudo.nombre,
+            style: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Palatino',
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }
